@@ -1,0 +1,46 @@
+﻿빌드 시작: 2015-08-08 오후 5:49:42
+     1>2 노드의 "C:\Users\Ko U Ram\Desktop\c Practice and Projects\Mine\KUR GONU\KUR GONU\KUR GONU\KUR GONU.vcxproj" 프로젝트(build 대상)입니다.
+     1>InitializeBuildStatus:
+         "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\KUR GONU.unsuccessfulbuild"을(를) 만들고 있습니다.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt MainGame.c
+         MainGame.c
+     1>c:\users\ko u ram\desktop\c practice and projects\mine\kur gonu\kur gonu\kur gonu\stack.h(10): warning C4005: 'TRUE' : 매크로 재정의
+                 c:\program files (x86)\microsoft sdks\windows\v7.0a\include\windef.h(72) : 'TRUE'의 이전 정의를 참조하십시오.
+     1>c:\users\ko u ram\desktop\c practice and projects\mine\kur gonu\kur gonu\kur gonu\maingame.c(1376): warning C4996: 'putch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _putch. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\conio.h(135) : 'putch' 선언을 참조하십시오.
+     1>c:\users\ko u ram\desktop\c practice and projects\mine\kur gonu\kur gonu\kur gonu\maingame.c(1403): warning C4996: 'putch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _putch. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\conio.h(135) : 'putch' 선언을 참조하십시오.
+     1>c:\users\ko u ram\desktop\c practice and projects\mine\kur gonu\kur gonu\kur gonu\maingame.c(332): warning C4715: 'turn' : 모든 제어 경로에서 값을 반환하지는 않습니다.
+     1>c:\users\ko u ram\desktop\c practice and projects\mine\kur gonu\kur gonu\kur gonu\maingame.c(450): warning C4715: 'inputRoutine' : 모든 제어 경로에서 값을 반환하지는 않습니다.
+     1>c:\users\ko u ram\desktop\c practice and projects\mine\kur gonu\kur gonu\kur gonu\maingame.c(671): warning C4715: 'inputForSelect' : 모든 제어 경로에서 값을 반환하지는 않습니다.
+     1>c:\users\ko u ram\desktop\c practice and projects\mine\kur gonu\kur gonu\kur gonu\maingame.c(1007): warning C4715: 'inputForMove' : 모든 제어 경로에서 값을 반환하지는 않습니다.
+       ManifestResourceCompile:
+         모든 출력이 최신 상태입니다.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ko U Ram\Desktop\c Practice and Projects\Mine\KUR GONU\KUR GONU\Debug\KUR GONU.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\KUR GONU.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Ko U Ram\Desktop\c Practice and Projects\Mine\KUR GONU\KUR GONU\Debug\KUR GONU.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ko U Ram\Desktop\c Practice and Projects\Mine\KUR GONU\KUR GONU\Debug\KUR GONU.lib" /MACHINE:X86 "Debug\KUR GONU.exe.embed.manifest.res"
+         Debug\gonuDebug.obj
+         Debug\Rull.obj
+         Debug\Stack.obj
+         Debug\ConsoleGraphics.obj
+         Debug\GameData.obj
+         Debug\MainGame.obj
+         Debug\MenuAndUI.obj
+         Debug\GraphADT.obj
+         Debug\Main.obj
+         Debug\GonuInput.obj
+         Debug\StringQueue.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\KUR GONU.exe.embed.manifest" /manifest "Debug\KUR GONU.exe.intermediate.manifest"
+         모든 출력이 최신 상태입니다.
+       LinkEmbedManifest:
+         모든 출력이 최신 상태입니다.
+         KUR GONU.vcxproj -> C:\Users\Ko U Ram\Desktop\c Practice and Projects\Mine\KUR GONU\KUR GONU\Debug\KUR GONU.exe
+       FinalizeBuildStatus:
+         "Debug\KUR GONU.unsuccessfulbuild" 파일을 삭제하고 있습니다.
+         "Debug\KUR GONU.lastbuildstate"에 연결(touching)하고 있습니다.
+     1>"C:\Users\Ko U Ram\Desktop\c Practice and Projects\Mine\KUR GONU\KUR GONU\KUR GONU\KUR GONU.vcxproj" 프로젝트를 빌드했습니다(build 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:01.14

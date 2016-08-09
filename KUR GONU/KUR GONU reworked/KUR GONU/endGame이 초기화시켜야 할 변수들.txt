@@ -1,0 +1,10 @@
+MainGame
+
+vertexStack, tempEnterables
+
+GameData
+
+heap:
+	mapGraph로			vertex들
+	mapCrossingArr로		Crossing들
+	piecesP1,2로			piece들

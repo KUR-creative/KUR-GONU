@@ -1,0 +1,31 @@
+//약간 복잡하고 길기 때문에 써준다.
+파일 --> 변수(메모리)
+
+파일 열기
+파일에 설정된 교차점crossing 갯수(count)읽기
+
+count만큼 반복
+	새 crossing 만들고 동적 할당 
+	동적할당 된 메모리에 테이블(교차점에 대한 정보들)의 값 읽어서 넣기(fscanf)
+	crossing을 (Data)로 형변환하여 새로 만든 Vertex에 넣기( allocVertexById)
+	crossing이 들어간 Vertex를 기존의 mapGraph에 넣기
+
+
+간선정보 저장형식 읽기('L', 'M')
+'L'이라면
+	mapCrossingArr[]을 만든다(graphADT에서 쓰는 dataArr이다. edge추가시에 필요)
+	간선에 대한 테이블의 정보를 char 한 개씩 읽으면서 그래프에 edge를 추가한다.
+
+모드 정보 읽기('N', 'F')
+
+1p의 말 갯수 읽기
+갯수만큼 반복
+	piece 동적할당
+	말 데이터의 테이블 읽고 동적할당한 piece에 값 넣기fscanf
+	restP1, lifeP1, piecesP1에 값 넣기
+
+2p의 말 갯수 읽기
+갯수만큼 반복
+	piece 동적할당
+	말 데이터의 테이블 읽고 동적할당한 piece에 값 넣기fscanf
+	restP2, lifeP2, piecesP2에 값 넣기

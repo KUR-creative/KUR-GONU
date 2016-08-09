@@ -1,0 +1,244 @@
+void initEnterables( const struct Piece* piecesP1[], const struct Piece* piecesP2[] )
+각각의 말들의 occupying에 접근하여 occupier를 설정해준다.
+enterable을 설정해준다. 아군 말이 있는 곳만 접근 불가능하게 해주면 된다.
+//성의 경우 .gonu파일에 enterable이 저장되어있다.
+
+	while(1)
+		inputForSelect()
+		inputForMove()
+	
+
+inputP1()
+	static Piece* cursor = piecesP1[0]; //계속 유지되는 커서를 놔둔다. 편의를 위해.
+	
+	모든 말 위치 1칸 위쪽에 각각의 ID를 띄운다.
+
+printEnterables새로 만들어라.
+
+사용법!
+getEnterables(origin, origin->occupying, 1);
+요렇게 적으면 말 origin에서 알아서 쭉쭊 됩니다.
+
+getTempEnterables(Piece* origin, Vertex* prev, int count)
+	1)range와 count가 같아지(는 graph의 vertex)면
+		그 vertex의Crossing을 tempEnterables[]에 넣는다.
+		//즉 prev에 접한 애들 다 뽑는다.
+	2)아직 count < range인 Vertex라면
+		vertex의link를 따라가면서(반복)// 즉 연결리스트의 모든 vertex에 대해 한다. 
+			mapGraph.vertices[각 link들의 IDnum]와 (하나 증가한 count)를 이용해 
+			재귀호출한다. // count++; printEnterables(origin, mapGraph.vertices[각 link들의 IDnum], count)
+
+1)은 출력(arr에 출력)이고
+2)는 단계하강이다.
+return은 단계상승이고
+반복문은 단계는 그대로에 다른 인접한 애들 건드리기다.
+
+range == 1이면 1)
+range == 2이면 2) 1)
+
+더 자세히 써본다.
+writeTempEnterables(Piece* origin, Vertex* prev, int count)
+	traveler = prev->link;
+
+	if count == origin의range
+		//traveler가 현재 체크하는 녀석이고 출력해야할 최고깊이의 vertex이다.
+		while traveler != NULL
+			if traveler != origin  &&  traveler의enterable == 1
+				traveler를 tempEnterables[]에 넣는다.(집어넣는건 마지막 원소 다음 칸에만 가능하게 한다. 덱이라 하나 이걸?)
+			
+			traveler = traveler->link
+		endwhile
+		return;
+
+	else if count < origin의range
+		//traveler가 현재 체크하는 녀석이고 조건이 되면 이놈 다음 단계로 내려가야한다.
+		while traveler != NULL	
+			if traveler의enterable == 1  &&  traveler의occupier가NULL
+				writeTempEnterables( origin, mapGraph.vertices[traveler의IDnum], count+1);
+			
+			traveler = traveler->link
+		endwhile
+
+	else
+		??문제가 생긴거임..
+	endelse
+
+endfunc
+
+printTempEnterables()
+{ 
+	// sortEnterables()
+	y오름차순으로 정렬한다
+	같은 y를 가질 때 x오름차순으로 정렬한다
+
+	vertex의crossing에 접근해서 
+	적절한 좌표에 vertex가 들어있던 index를 출력한다.
+}
+
+sortTempEnterables에서 같은 y일 때 x기준 오름차순 정렬
+i = 0 그냥 넣음
+i > 0 넣고 [i-1].y랑 [i].y비교
+	[i-1].y == [i].y 면
+		좀더 간다
+	[i-1].y != [i].y 면
+		min~[i-1]까지의 배열을 vertexBubbleSort한다.
+		min = [i]한다.
+i = min i에 그냥 넣는다.
+...
+*) i = min하는데 배열의 끝이면?
+걍 1개 남고 끝난거니까 그냥 끝낸다.
+*) [i-1]과 [i]를 비교하는데 [i]가 배열의 끝이면?
+그냥 하던데로 하고 반복문은 종료시킨다.
+
+sortTempEnterables		//버려짐
+	prev = -1
+
+	nowIndex = 0
+	while now <= [top]
+		if prev == -1
+			min = now
+			prev = now
+		else
+			if now == prev
+				if nowIndex == top
+					vertexArrBubbleSort(min의주소, nowIndex-minIndex, 'x' )
+				prev = now
+				continue
+			else
+				vertexArrBubbleSort(min의주소, nowIndex-minIndex, 'x' )
+				prev = -1
+				now = [nowIndex-1]
+			endelse
+
+		endelse
+
+		nowIndex++
+
+	endfor
+
+endfunc
+
+더 좋은 방법
+1.indexArr 설정.~
+2. y를 조사해서 y가 바뀌는 index를 indexArr에 저장한다
+3. top+1을 마지막으로 저장한다.
+4.bubbleSort( [min], [i]-[i-1], 'x' ) 단 i = 1~top+1
+////////////////////////////////////////////////////////////////////
+
+inputForSelect()		 //버려짐
+	무한반복
+	{
+	tmp = gonuInput
+	tmp가
+		방향키	: cursor의 배경 주황색으로.
+			무한반복
+			{
+			입력값 = gonuInput 이 
+				방향키	: FocusChangeByArrow	//현재 커서를 기준으로 적당히 x, y 봐서 맞는 쪽의 *piece를 cursor에 넣고 배경색들(전, 후)을 바꿔준다.
+						cursor에 현재 포커스 중인 말을 넣는다.
+				숫자		: if piecesP1[입력값] != NULL
+							cursor에 현재 포커스 중인 말을 넣는다.
+							선택한 말 배경 노란색으로.
+						  else	반복문 계속
+				엔터		:	cursor에 현재 포커스 중인 말을 넣는다.
+							cursor 말 배경 노랑으로
+				영문자열	:
+						if "gg" || "GG"
+							return {NULL,2};	// 2p 승리
+						else if "next" || "NEXT"
+							return {NULL,NULL};	// 턴 넘기기
+				디폴트	: 반	복문 계속.
+			}
+
+		숫자		:
+			if piecesP1[tmp] != NULL
+				선택한 말 배경 노란색으로.
+
+		영문자열	:
+			if "gg" || "GG"
+				return {NULL,2};	// 2p 승리
+			else if "next" || "NEXT"
+				return {NULL,NULL};	// 턴 넘기기
+				
+		그 외	:
+			반복문 계속...
+	}
+	선택한 말의 Vertex와 인접한 교차점들에 숫자를 쓴다. '숫자'들을 일시적으로 배열에 넣어 관리한다. crossingNumArr[VERTEX_NUM_MAX]
+
+moveForSelect()
+	무한반복
+	{
+	Crossing* focus = NULL
+	tmp = gonuInput
+	tmp가
+		방향키	: 
+			최소 '숫자'의 Crossing*을 focus에 넣기.
+			최소 '숫자'의 배경 주황색으로.
+			무한반복
+			{
+			입력값 = gonuInput 이 
+				방향키	:	FocusChangeByArrow	//현재 커서를 기준으로 적당히 x, y 봐서 맞는 쪽의 *Crossing을 focus에 넣고 배경색들(전, 후)을 바꿔준다.
+							focus에 현재 포커스 중인 말을 넣는다.
+				숫자		: if crossingNumArr[입력값] != NULL
+							focus에 선택한 숫자의 교차점을 넣는다.
+							focus 배경 노란색으로.
+						  else	반복문 계속
+				엔터		:	focus에 현재 포커스 중인 교차점을 넣는다. 
+							focus 배경 노랑으로
+				영문자열	:
+							if "gg" || "GG"
+								return {NULL,2};	// 2p 승리
+							else if "next" || "NEXT"
+								return {NULL,NULL};	// 턴 넘기기
+				디폴트	: 반	복문 계속.
+			}			
+
+		숫자		:
+			if piecesP1[tmp] != NULL
+				선택한 말 배경 노란색으로.
+
+		영문자열	:
+			if "gg" || "GG"
+				return {NULL,2};	// 2p 승리
+			else if "next" || "NEXT"
+				return {NULL,NULL};	// 턴 넘기기
+				
+		그 외	:
+			반복문 계속...
+	}
+
+
+pieceMove( InputReturn {select, move} )
+	select를 move로
+
+	##select는 적과 겹친다면
+		겹치는 적 말의 pieces[id] = NULL
+		killPiece()
+	
+	printMovedPiece
+		잇던 곳은 지우고		eraseEffect( Crossing* crossing )
+		새로 가는 곳에 프린트한다.	printPiece
+	
+ 
+<<Rull.c>>
+	
+killPiece
+	적 rest --
+	아군 life ++
+
+##적과 겹친다면.
+	옮긴 곳의 교차점 데이터 파악
+	거기에 있는 말 파악
+		말이 우리팀이라면 에러	0
+		말이 없다면 걍 둬		0
+		말이 적팀이라면 참		1	
+
+// player가 졌는가?
+isDefeated( player )
+	player의 Life가 0
+	player의 rest가 0
+	
+	isOccupied 가 1
+
+
+isOccupied( Crossing* )

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KUR GONU", "KUR GONU\KUR GONU.vcxproj", "{AE99F448-BF7E-43D8-95A6-8D9F1923273E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE99F448-BF7E-43D8-95A6-8D9F1923273E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AE99F448-BF7E-43D8-95A6-8D9F1923273E}.Debug|Win32.Build.0 = Debug|Win32
+		{AE99F448-BF7E-43D8-95A6-8D9F1923273E}.Release|Win32.ActiveCfg = Release|Win32
+		{AE99F448-BF7E-43D8-95A6-8D9F1923273E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

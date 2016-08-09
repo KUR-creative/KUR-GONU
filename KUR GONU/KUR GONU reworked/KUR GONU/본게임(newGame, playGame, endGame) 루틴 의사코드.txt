@@ -1,0 +1,382 @@
+1. initGame()		loadDataFile.txt에서 했다.
+2. playGame(int)
+3. endGame()
+*. logWrite()
+
+
+2.0 
+playGame( who )		// who = 0 -> random, 1 -> 1p, 2 -> 2p : who에 따라 순서를 결정한다.
+	int winner
+
+	if	who 
+		winner = gameRoutine( who )
+	else
+		winner = gameRoutine( 난수%2 +1)
+
+					//승리 메시지를 띄운다.
+	if	winner == 1
+		winP1()
+	else
+		winP2()		
+
+2.1 
+int gameRoutine( whoFirst )		//
+	int winner
+	int tmp
+
+	if	whoFirst == 1
+		while(1)
+			if	( tmp = turnP1() ) { winner = tmp;	break; }	
+			if	( tmp = turnP2() ) { winner = tmp;	break; }
+	else
+		while(1)
+			if	( tmp = turnP2() ) { winner = tmp;	break; }
+			if	( tmp = turnP1() ) { winner = tmp;	break; }
+
+	return winner	//이긴 놈을 리턴한다.
+
+2.2
+void winP1()
+	중간에 아름답게 승리 축하 메시지를 출력해준다.
+	_getch()로 아무키나 누르면 return한다.(대기함수)
+
+2.3 
+int turnP1()	// 0: 무승부		1: 1p 승리	2: 2p 승리
+	<턴 진입 시각 효과>
+	<입력>
+	
+	if 입력값 == "gg" or "GG	"	
+		return 2;
+	else if 입력값 == "next" or "NEXT"
+		return 0;
+	
+	<p1상태 변경>
+
+	if 2p상태 변경이 있다면	
+		2p 상태변경
+
+	if 1p 승리
+		return 1;
+	else
+		return 0;
+
+int turnP2()	// 0: 무승부		1: 1p 승리	2: 2p 승리
+	<턴 진입 시각 효과>
+	<입력>
+	
+	if 입력값 == gg or GG		
+		return 1;
+	else if 입력값 == "next" or "NEXT"
+		return 0;
+	
+	<p2상태 변경>
+
+	if 1p상태 변경이 있다면
+		1p 상태변경
+
+	if 2p 승리
+		return 2;
+	else
+		return 0;
+
+2.4 <턴 진입	 시각 효과>
+	1p 창과 2p 창을 새로 그려서 현재 차례인 플레이어를 강조한다.
+	로그창에 턴이 바뀌었음을 알린다. "RED의 차례입니다."
+
+2.5 <입력> 입력을 위한 사전 표시 등도 포함
+ // 반환값의 정보 : Piece* ~가 Vertex* ~로 이동한다. 전용 InputValues 구조체를 만들자. 
+ //		일반적인 이동{Piece*, Vertex*} / 턴넘기기{NULL, NULL} / 항복{NULL, 2} or {NULL, 1}
+
+ //입력창 안에서만 에코가 표시되어야한다.	-> 멋진 gonuInput 함수.
+ //일정 길이 이상의 입력은 모두 지워버리고 다시 입력받는다. kbhit과 gotoXY이용.
+ // -> 안될거 같은데.. 결국 안된다면 그냥 너무 긴 커맨드를 쓰는 새1끼는 반칙패시킨다.
+ 
+ //gotoInputP() 1 아니면 2. 커서를 사용자 입력 창으로 옮기는 함수 만들 것. 항상 써야한다.
+
+inputRoutine( player)
+	while(1)
+		select = inputForSelect()
+		
+		if select == gg
+			return gg
+		else if select == next
+			return next
+		
+		move = inputForMove(select)
+
+		if move == gg
+			return gg
+		else if move == next
+			return next
+		else if move == reselect	//현재 무한루프인 inputForMove함수를 조정해서 말 재선택이 가능하게 해야 한다.
+			continue
+		else
+			return {select, move}	//{Piece*, Vertex*}
+
+	endWhile
+		
+
+inputForSelect()
+	while(1)
+		말 위 숫자를 표시한다
+
+		입력n을 받는다
+		n이
+			숫자다
+				n이 표시된 말ID 중에 있다면
+					n == ID인 말 배경 노랑
+					return 선택된 말 ID
+
+			방향키다
+				while(1)
+					입력a을 받는다
+					a가
+						숫자다
+							a이 표시된 말ID 중에 있다면
+								a == ID인 말 배경 노랑
+								return 선택된 말
+						방향키다
+							changeFocusByArrow	//포커스를 바꾸고
+							printChangedFocus	//기존의 말과 바뀔 말을 다시 출력.
+							continue;
+						"gg"나 "GG"다
+							return gg	
+						"next"나 "NEXT"다
+							return next
+						ENTER다
+							cursor 배경 노랗게
+							return cursor
+						그 외다.
+							continue
+				endwhile
+
+			"gg"나 "GG"다
+				return gg
+			"next"나 "NEXT"다
+				return next
+			그 외다.
+				continue
+	endwhile
+
+inputForMove(select)
+	while(1)
+	focus = select
+		focus가 갈 수 있는 정점(range 확장성)1칸 위에 숫자를 표시한다//적의 말을 지우는 경우가 생길수도 있따..
+
+		입력n을 받는다
+		n이
+			숫자다
+				n이 표시된 정점 중에 있다면
+					n인 정점 배경 노랑
+					return 선택된 정점
+
+			방향키다
+				while(1)
+					입력a를 받는다
+					a가
+						숫자다
+							a가 표시된 정점 중에 있다면
+								a인 말 배경 노랑
+								return 선택된 정점
+						방향키다
+							포커스를 바꾸고
+							기존의 교차점과 바뀔 교차점을 다시 출력.
+							continue
+						"gg"나 "GG"다
+							return gg
+						"next"나 "NEXT"다
+							return next
+						ENTER다
+							cursor 배경 노랗게
+							return cursor
+						그 외다.
+							continue
+				endwhile
+
+			"gg"나 "GG"다
+				return gg
+			"next"나 "NEXT"다
+				return next
+			그 외다.
+				return reselect;	
+	endwhile
+
+
+2.5.1 더 자세하고 foraml한 <입력>
+
+inputForSelect()
+	while(1)
+		Piece* cursor;
+		static Piece* curP1;	//편의를 위한 static, 이전 턴에 플레이 했던 녀석을 기억한다.
+		static Piece* curP2;
+
+		//static 변수를 이용하는 코드로 편의성을 올려라.
+		
+		printPiecesId(cursor)	//@@말 한칸 위에 ID 띄우기
+
+		input = gonuInput
+		
+		(input)
+			숫자다
+				n이 표시된 말ID 중에 있다면(NULL이 아니면
+					selected = (n == ID인 말)
+					selected 배경 노랗게
+					erasePiecesId(cursor)	//말들위에 출력된 ID를 지운다.
+					return selectedID
+
+			방향키다
+			
+				원래 가지고 있던 커서를 주황색 칠한다.
+				while(1)
+				
+					입력_input를 받는다
+										
+					temp가
+						숫자다
+							temp가 표시된 말ID 중에 있다면
+								selected = (temp == ID인 말)
+								selected 배경 노랗게
+								erasePiecesId(cursor)	//말들위에 출력된 ID를 지운다.
+								return selectedID
+						방향키다
+							changePieceFocus	//@@포커스인덱스(cursor)를 바꾸고
+							printChangedFocus	//@@기존의 말은 검은색배경, 바뀐 말은 주황색 배경 출력.
+							continue
+						"gg"나 "GG"다
+							erasePiecesId(cursor)	// -
+							return gg
+						"next"나 "NEXT"다
+							erasePiecesId(cursor)	// -
+							return next
+						ENTER다
+							cursor 배경 노랗게
+							erasePiecesId(cursor)	// - 요것들 3가지는 break를 써서 중복되는 코드를 줄일 수 있을듯.
+							return cursorId
+						그 외다.
+							continue
+				endwhile
+
+			"gg"나 "GG"다
+				erasePiecesId(cursor)	// -
+				return gg
+			"next"나 "NEXT"다
+				erasePiecesId(cursor)	// -
+				return next
+			ENTER다
+				cursor 배경 노랗게
+				erasePiecesId(cursor)	// - 요것들 3가지는 break를 써서 중복되는 코드를 줄일 수 있을듯.
+				return cursorId
+			그 외다.
+				continue
+	endwhile
+
+inputForMove(Piece* select)		//select는 Piece이므로 1p인지 2p인지 알 수 잇따.
+	while(1)
+		writeTempEnterables(Piece* origin, Vertex* prev, int count) //select가 갈 수 있는 정점을 저장한다
+		printTempEnterables( IntStack* tempEnterables)	//select가 갈 수 있는 정점(range 확장성)1칸 위에 숫자를 표시한다
+
+		input = gonuInput()
+		(input)
+			숫자다
+				input이 표시된 교차점 중에 있다면(ID로 확인)
+					eraseTempEnterables( tempEnterables );	//숫자들은 전부 지운다.
+					selectEffect(input인 교차점)
+					
+					return 선택된 정점 ID
+
+			방향키다
+				while(1)
+					입력a를 받는다
+					a가
+						숫자다
+							a가 표시된 정점 중에 있다면
+								selectEffect(a인 정점)
+								eraseEnterables(focus)
+								return 선택된 정점 ID
+						방향키다
+							changeVertexFocus	//포커스를 바꾸고
+							printChangedFocus	//기존의 교차점과 바뀔 교차점을 다시 출력.
+							continue
+						"gg"나 "GG"다
+							eraseEnterables(focus)	//-
+							return gg
+						"next"나 "NEXT"다
+							eraseEnterables(focus)	// -
+							return next
+						ENTER다
+							cursor 배경 노랗게
+							eraseEnterables(focus)	// - 요것들 3가지는 break를 써서 중복되는 코드를 줄일 수 있을듯.
+							return focus
+						그 외다.
+							continue
+				endwhile
+
+			"gg"나 "GG"다
+				eraseEnterables(focus)	//-
+				return gg
+			"next"나 "NEXT"다
+				eraseEnterables(focus)	//-
+				return next
+			그 외다.
+				eraseEnterables(focus)	//- 요것들 3가지는 break를 써서 중복되는 코드를 줄일 수 있을듯.
+				return reselect;	
+	endwhile
+
+void playGame( int who )
+int gameRoutine( int whoFirst )
+int turn( int player )
+inputReturn input( int player )		// inputReturn을 반환한다!
+int inputForSelect( int player )	//문자열 커맨드 or Piece ID를 반환한다.
+int inputForMove(Piece* select)		//문자열 커맨드 or Vertex ID를 반환한다.
+
+void printPiecesId(Piece* pieces[], int pieceNum);		@
+void erasePiecesId(Piece* pieces[], int pieceNum);		@
+changeFocusByArrow(before, after)	
+printChangedFocus
+printEnterables(Piece* focus)
+eraseEnterables(focus)
+
+Vertex* tempEnterables[ADJACENT_NUM_MAX] 
+일시적으로 input에 쓰이는 Vertex들을 모아두는 곳.
+편의를 위해 정렬 시키는 것을 염두해 두자.
+
+//printEnterables( piece, piece->occupying, 0 ); 이렇게 쓴다.
+void printEnterables(Piece* origin, Vertex* prev, int count)
+	
+	int tmp
+			
+	if count == origin의range
+		traveler = prev;
+		while traveler != NULL
+			if traveler != origin  &&  traveler의enterable == 1
+				traveler를 tempEnterables[]에 넣는다.
+				tempEnterables[]에 접근하여 적절한 위치에 그 index를 출력한다.
+				traveler = traveler->link
+		endwhile
+		return;
+
+	else if count < origin의range
+		traveler = prev;
+		while traveler != NULL
+			if traveler의enterable == 1
+				printEnterables( origin, traveler->link, count+1);
+			else
+				continue
+			traveler = traveler->link
+		endwhile
+
+	else
+		??문제가 생긴거임..
+	endelse
+
+2.6 상태변경
+ 1)데이터를 바꾼다.
+ 2)화면을 바꾼다.(애니메이션 효과는 못넣겠다.)
+	
+ 
+//플레이어가 2명 이상이 될 가능성? 시바... 그건 그냥 하지 말자
+//그건 게임 UI부터 모든걸 손대야 되기 때문에 그냥 때려치우세요
+		
+
+*.logWriter("str")
+큐 자료구조 이용.(결국 문자열 포인터가 있는 하나의 배열 전체를 계속 출력하는 것이다.)

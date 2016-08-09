@@ -1,0 +1,33 @@
+1. 확장자는 gonu
+2. ID는 행에 따라 정해진다.
+3. 파일의 구조는
+
+원소의 개수
+crossingData
+L (혹은 M)	->	L : adjacency index list,	M : adjacency matrix
+그래프 간선에 대한 정보(L이냐 M이냐에 따라 달라진다)
+
+이렇다.
+
+4.
+(0)숫자 한 개만 쓴다.
+(1)crossingData
+항목	x	y	crossingType	p1	p2	txt	back	*occupier
+기본값	-1	-1	\0		-1	-1	-1	-1	NULL
+(1.5)간선정보를 무엇으로 저장했는가? List or Matrix 
+(2)간선 정보는 행으로 구분. 행의 끝을 NULL_ID로 알리지 않아도 된다.
+(3)말데이터는 모드에 따라 달라진다. 'N': normal, 'F': free deploy
+N
+갯수
+값들------
+값들------
+값들------
+값들------
+값들------
+...
+갯수
+값들------
+값들------
+값들------
+값들------
+값들------
