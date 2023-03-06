@@ -411,14 +411,16 @@ Vertex* allocVertexById(int IDnum, Data data)
 }
 
 //link a new Vertex to prev 
-void insertListNode(Vertex** prev, Vertex* newNode)	//prev는 &(헤드포인터) 혹은 &(새로운 Vertex를 붙일 Vertx->link)
+//prev는 &(헤드포인터) 혹은 &(새로운 Vertex를 붙일 Vertx->link)
+void insertListNode(Vertex** prev, Vertex* newNode)	
 {
 	newNode->link = *prev;
 	*prev = newNode;
 }
 
 //prev와 removed의 연결을 끊고 removed의 메모리를 해제한다.
-void deleteListNode(Vertex** prevPtr, Vertex* removed)//prev는 &(헤드포인터) 혹은 &(기존의 Vertex를 삭제할 Vertx->link)
+//prev는 &(헤드포인터) 혹은 &(기존의 Vertex를 삭제할 Vertx->link)
+void deleteListNode(Vertex** prevPtr, Vertex* removed)
 {
 	*prevPtr = removed->link;
 	free(removed);

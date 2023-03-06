@@ -222,12 +222,20 @@ void credit()
 	gotoXY( 10, CONSOLE_HEIGHT_NUM /3 + 8 );	puts("133t    codesafer    ssonacy    꼬마야    ㅅㅅㅅ"	);
 	gotoXY( 10, CONSOLE_HEIGHT_NUM /3 + 9 );	puts("그리고 차*민 에게 감사를 표합니다.");
 
+	gotoXY( 10, CONSOLE_HEIGHT_NUM /3 + 11);	puts("디버깅과 테스트를 도와주신");
+	gotoXY(10, CONSOLE_HEIGHT_NUM / 3 + 12);	puts("KBR	GOD_FRONT");
+
+	gotoXY(10, CONSOLE_HEIGHT_NUM / 3 + 14);	puts("그리고 릴리즈에 대한 조언을 해주신");
+	gotoXY(10, CONSOLE_HEIGHT_NUM / 3 + 15);	puts("김춘추	whatugonnado");
+
+	gotoXY(10, CONSOLE_HEIGHT_NUM / 3 + 17);	puts("...모두들 감사합니다.");
+
 
 	
 
 
 
-	gotoXY( 10, CONSOLE_HEIGHT_NUM /3 + 16 );	puts("0. 뒤로");		gotoXY( 17, CONSOLE_HEIGHT_NUM /3 + 16 );//커서 조절
+	gotoXY( 10, CONSOLE_HEIGHT_NUM /3 + 20 );	puts("0. 뒤로");		gotoXY( 17, CONSOLE_HEIGHT_NUM /3 + 16 );//커서 조절
 }
 int onCredit(int input)
 {
