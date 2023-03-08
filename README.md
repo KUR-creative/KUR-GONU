@@ -1,4 +1,5 @@
 # KUR-GONU
+![gonu](./gonu_now_available.png)
 my first c console game
 
 ## Summary
